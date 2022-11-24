@@ -12,6 +12,8 @@ import javax.validation.constraints.*;
 import java.util.Date;
 import java.util.Set;
 
+@Entity
+@Table(name = "user")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -33,7 +35,7 @@ public class User {
     private Date updated;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "updated")
+    @Column(name = "last_online")
     private Date lastOnline;
 
     @NotBlank
@@ -83,6 +85,9 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private Set<Mail> mailSet;
+
+    @OneToMany(mappedBy = "user")
+    private Set<ConfirmationToken> confirmationTokenSet;
 
     @ManyToMany(mappedBy = "userTagSet")
     private Set<Tag> tagSet;

@@ -1,11 +1,10 @@
 package com.example.mainservice.entity;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.Set;
 
+@Entity
+@Table(name = "tag")
 public class Tag extends BaseEntity{
 
     @Column(name = "tag_name")
@@ -16,8 +15,8 @@ public class Tag extends BaseEntity{
 
     @ManyToMany
     @JoinTable(name = "tag_has_user",
-    joinColumns = {@JoinColumn(name = "id")},
-    inverseJoinColumns = {@JoinColumn(name = "id")})
+    joinColumns = {@JoinColumn(name = "tag_id")},
+    inverseJoinColumns = {@JoinColumn(name = "user_id")})
     private Set<User> userTagSet;
 
     @ManyToMany(mappedBy = "tagSet")

@@ -1,5 +1,9 @@
 package com.example.mainservice.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -10,7 +14,13 @@ import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.Set;
 
-public class DefaultNews {
+@Entity
+@Table(name = "default_news")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class DefaultNews{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,14 +61,14 @@ public class DefaultNews {
     @Column(name = "active")
     private boolean active;
 
-    @OneToMany
-    @Column(name = "source_id")
+    @ManyToOne
+    @JoinColumn(name = "source_id")
     private Source source;
 
     @ManyToMany
-    @JoinTable(name = "default_news_has_tags",
-    joinColumns = {@JoinColumn(name = "id")},
-    inverseJoinColumns = {@JoinColumn(name = "id")})
+    @JoinTable(name = "default_news_has_tag",
+    joinColumns = {@JoinColumn(name = "default_news_id")},
+    inverseJoinColumns = {@JoinColumn(name = "tag_id")})
     private Set<Tag> tagSet;
 
 

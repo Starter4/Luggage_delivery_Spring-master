@@ -12,6 +12,8 @@ import javax.validation.constraints.Size;
 import java.util.Date;
 
 
+@Entity
+@Table(name = "mail")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -46,7 +48,7 @@ public class Mail {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    User user;
+    private User user;
 
 
 }

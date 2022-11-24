@@ -3,24 +3,26 @@ package com.example.mainservice.entity;
 import javax.persistence.*;
 import java.util.Set;
 
+@Entity
+@Table(name = "source")
 public class Source extends BaseEntity{
 
-    @Column(name = "source_name")
+    @Column(name = "sourse_name")
     public String sourceName;
 
     @Column(name = "active")
     private boolean active;
 
-    @OneToMany
-    @JoinColumn(name = "media_platform_id")
+    @ManyToOne
+    @JoinColumn(name = "media_id")
     private MediaPlatform mediaPlatform;
 
-    @ManyToMany(mappedBy = "source")
-    private DefaultNews defaultNews;
+    @OneToMany(mappedBy = "source")
+    private Set<DefaultNews> defaultNewsSet;
 
     @ManyToMany
     @JoinTable(name = "source_has_user",
-    joinColumns = {@JoinColumn(name = "id")},
-    inverseJoinColumns = {@JoinColumn(name = "id")})
+    joinColumns = {@JoinColumn(name = "source_id")},
+    inverseJoinColumns = {@JoinColumn(name = "user_id")})
     private Set<User> userSourceSet;
 }
