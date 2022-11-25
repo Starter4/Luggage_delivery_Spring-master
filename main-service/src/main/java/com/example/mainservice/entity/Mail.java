@@ -1,5 +1,6 @@
 package com.example.mainservice.entity;
 
+import com.example.mainservice.entity.enums.MailType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

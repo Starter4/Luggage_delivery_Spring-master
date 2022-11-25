@@ -1,5 +1,6 @@
 package com.example.mainservice.entity;
 
+import com.example.mainservice.entity.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class User{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -100,5 +101,4 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private Set<ConfirmationToken> confirmationTokens;
-
 }
