@@ -2,7 +2,7 @@ package com.example.mailservice.controller;
 
 import com.example.mailservice.dto.MailRequest;
 import com.example.mailservice.dto.MailResponse;
-import com.example.mailservice.dto.MailStatus;
+import com.example.mailservice.dto.enums.MailStatus;
 import com.example.mailservice.service.serviceImplementation.SendLetterServiceI;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -13,8 +13,8 @@ import javax.mail.MessagingException;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = "/api/mail",produces="application/json")
-@CrossOrigin("http://localhost:8080")
+@RequestMapping(path = "/api/v2/mail",produces="application/json")
+//@CrossOrigin("http://localhost:8080")
 public class MailController {
 
     SendLetterServiceI iSendLetterService;

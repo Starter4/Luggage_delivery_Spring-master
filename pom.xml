@@ -20,7 +20,8 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <spring.boot.maven.plugin.version>2.7.5</spring.boot.maven.plugin.version>
-        <spring.boot.dependency.version>2.7.5</spring.boot.dependency.version>
+        <spring.boot.dependency.version>2.7.6</spring.boot.dependency.version>
+        <spring-cloud.version>2021.0.5</spring-cloud.version>
     </properties>
 
     <dependencyManagement>
@@ -31,6 +32,13 @@
                 <version>${spring.boot.dependency.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -45,6 +53,7 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <version>${spring.boot.dependency.version}</version>
         </dependency>
+
     </dependencies>
 
     <build>

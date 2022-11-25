@@ -21,10 +21,10 @@ import java.util.Collections;
 
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-    private JwtTokenProvider jwtTokenProvider;
-    private JwtUserDetailsService jwtUserDetailsService;
+    private final JwtTokenProvider jwtTokenProvider;
+    private final JwtUserDetailsService jwtUserDetailsService;
     @Value("${jwt.prefix}")
-    private String header;
+    private final String header;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

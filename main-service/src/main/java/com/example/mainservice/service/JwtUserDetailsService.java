@@ -31,7 +31,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     public JwtUser findUserByID(Long id){
         User user = userRepository.findById(id)
-                .orElse(null);
+                .orElseThrow(()-> new UsernameNotFoundException(String.format("User with id '%s' dose not find",id)));
         return buildUser(Objects.requireNonNull(user));
     }
 

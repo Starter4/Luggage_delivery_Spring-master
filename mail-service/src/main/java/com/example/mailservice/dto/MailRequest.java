@@ -1,5 +1,6 @@
 package com.example.mailservice.dto;
 
+import com.example.mailservice.dto.enums.MailType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

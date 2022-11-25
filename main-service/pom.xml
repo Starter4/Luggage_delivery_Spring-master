@@ -42,11 +42,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-rest</artifactId>
         </dependency>-->
-        <!--Eureka must be added later-->
-        <!--<dependency>
+        <!--Eureka-->
+        <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-        </dependency>-->
+        </dependency>
         <!--Gson-->
         <dependency>
             <groupId>com.google.code.gson</groupId>

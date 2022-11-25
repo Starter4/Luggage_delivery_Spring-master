@@ -18,8 +18,8 @@ public class SendLetterServiceI {
     public void sendMassage(MailRequest mailRequest) throws MessagingException {
         String title = mailRequest.getTitle();
         String email = mailRequest.getEmail();
-        String letterBody = "";
-        switch (mailRequest.getMailType()){
+        String letterBody = "AAA";
+        /*switch (mailRequest.getMailType()){
             case REGISTRATION :
                 letterBody = LetterBodyCreator.createRegistrationBody(mailRequest.getUsername(),mailRequest.getToken());
                 break;
@@ -29,7 +29,7 @@ public class SendLetterServiceI {
                 break;
             case NEW_NEWS :
                 break;
-        }
+        }*/
         mailService.sendMessageWithHTML(email,title,letterBody);
     }
 }
