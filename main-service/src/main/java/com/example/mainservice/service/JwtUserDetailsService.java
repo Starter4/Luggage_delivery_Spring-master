@@ -15,10 +15,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
-public class JwtUserDetailsServiceI implements UserDetailsService {
+public class JwtUserDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
 
     @Override
@@ -26,6 +27,12 @@ public class JwtUserDetailsServiceI implements UserDetailsService {
         User user = userRepository.findUserByLogin(login)
                 .orElseThrow(()-> new UsernameNotFoundException(String.format("User with login '%s' dose not find",login)));
         return buildUser(user);
+    }
+
+    public JwtUser findUserByID(Long id){
+        User user = userRepository.findById(id)
+                .orElse(null);
+        return buildUser(Objects.requireNonNull(user));
     }
 
     private Collection<? extends GrantedAuthority> mapRoleToAuthority(Role role){
