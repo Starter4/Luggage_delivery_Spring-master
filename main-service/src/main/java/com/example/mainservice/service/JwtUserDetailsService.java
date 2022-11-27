@@ -24,6 +24,8 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+        System.out.println(login);
+        System.out.println("here");
         User user = userRepository.findUserByLogin(login)
                 .orElseThrow(()-> new UsernameNotFoundException(String.format("User with login '%s' dose not find",login)));
         return buildUser(user);
@@ -36,7 +38,7 @@ public class JwtUserDetailsService implements UserDetailsService {
     }
 
     private Collection<? extends GrantedAuthority> mapRoleToAuthority(Role role){
-        return List.of(new SimpleGrantedAuthority(role  .getAuthority()));
+        return List.of(new SimpleGrantedAuthority(role.getAuthority()));
     }
 
     private JwtUser buildUser(User user){

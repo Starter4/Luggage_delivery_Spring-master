@@ -3,11 +3,10 @@ package com.example.mainservice.security;
 
 import com.example.mainservice.entity.JwtUser;
 import com.example.mainservice.service.JwtUserDetailsService;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -19,12 +18,22 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
 
-@RequiredArgsConstructor
+
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-    private final JwtTokenProvider jwtTokenProvider;
-    private final JwtUserDetailsService jwtUserDetailsService;
+    private JwtTokenProvider jwtTokenProvider;
+    private JwtUserDetailsService jwtUserDetailsService;
     @Value("${jwt.prefix}")
-    private final String header;
+    private String header;
+
+    @Autowired
+    public JwtAuthenticationFilter(JwtTokenProvider jwtTokenProvider, JwtUserDetailsService jwtUserDetailsService) {
+        this.jwtTokenProvider = jwtTokenProvider;
+        this.jwtUserDetailsService = jwtUserDetailsService;
+    }
+
+    public JwtAuthenticationFilter(){
+
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

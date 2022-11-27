@@ -72,8 +72,6 @@ public class User{
     @Column(name = "phone_number")
     private String userPhone;
 
-    @Max(120)
-    @Min(14)
     @Column(name = "age")
     private int age;
 
