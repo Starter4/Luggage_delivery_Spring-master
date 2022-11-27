@@ -22,8 +22,8 @@ import java.io.File;
 @Slf4j
 public class MailServiceI implements SendLetterService {
 
-    @Value("${mail.address}")
-    private static String MAIL_ADDRESS;
+    //@Value("${mail.address}")
+    private static final String MAIL_ADDRESS = "testspringwebapp@gmail.com";
 
     private final JavaMailSender javaMailSender;
 

@@ -17,20 +17,21 @@ import javax.mail.MessagingException;
 //@CrossOrigin("http://localhost:8080")
 public class MailController {
 
-    SendLetterServiceI iSendLetterService;
+    private final SendLetterServiceI sendLetterService;
 
     @PostMapping("/send")
     public ResponseEntity<MailResponse> sendLetter(@RequestBody MailRequest mailRequest){
+        System.out.println(mailRequest);
         System.out.println("mail-service");
         try {
-            iSendLetterService.sendMassage(mailRequest);
+            sendLetterService.sendMassage(mailRequest);
             return new ResponseEntity<>(new MailResponse(MailStatus.SEND),HttpStatus.OK);
         } catch (MessagingException e) {
             return new ResponseEntity<>(new MailResponse(MailStatus.ERROR),HttpStatus.BAD_GATEWAY);
         }
     }
 
-    @GetMapping("")
+    @GetMapping("/send")
     public String sendLetterGet(){
         System.out.println("mail-service GET");
         return "OK";

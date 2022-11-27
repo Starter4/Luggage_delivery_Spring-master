@@ -13,7 +13,7 @@ import javax.mail.MessagingException;
 @RequiredArgsConstructor
 public class SendLetterServiceI {
 
-    MailServiceI mailService;
+    private final MailServiceI mailService;
 
     public void sendMassage(MailRequest mailRequest) throws MessagingException {
         String title = mailRequest.getTitle();
