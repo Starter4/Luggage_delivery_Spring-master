@@ -7,11 +7,15 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="api-gateway" />
         <module name="authentication-service" />
         <module name="main-service" />
         <module name="mail-service" />
         <module name="discovery-service" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="apt-gateway" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>
