@@ -1,4 +1,4 @@
-package com.example.mainservice.payload.request;
+package com.example.mainservice.payload.request.mailMicroservice;
 
 import com.example.mainservice.entity.enums.MailType;
 import lombok.AllArgsConstructor;

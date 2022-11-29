@@ -1,4 +1,4 @@
-package com.example.mainservice.payload.response;
+package com.example.mainservice.payload.response.mailMicroservice;
 
 import com.example.mainservice.entity.enums.MailStatus;
 import lombok.Data;
