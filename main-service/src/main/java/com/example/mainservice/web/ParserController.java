@@ -2,6 +2,9 @@ package com.example.mainservice.web;
 
 import com.example.mainservice.payload.request.parserMicroservice.ParserRequest;
 import com.example.mainservice.payload.response.parserMicroservice.ParserResponse;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
+import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -18,6 +21,11 @@ public class ParserController {
     private final WebClient.Builder webClientBuilder;
 
     @GetMapping("/google")
+    @CircuitBreaker(name = "parser", fallbackMethod = "serviceIsNotResponding")
+    @TimeLimiter(name = "parser")
+    @Retry(name = "parser")
+    //CompletableFuture
+    //CompletableFuture.supplyAsync(() ->)
     public void testGoogleParser(){
         ParserResponse parserResponse = webClientBuilder
                 .build()
@@ -30,6 +38,12 @@ public class ParserController {
                 .block();
         System.out.println(parserResponse);
         System.out.println("Call to parser-microservice");
+    }
+
+    //CompletableFuture
+    //CompletableFuture.supplyAsync(() ->)
+    public void serviceIsNotResponding(){
+
     }
 
 
