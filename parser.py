@@ -7,10 +7,11 @@ import re
 import numpy as np
 import tweepy
 import config
+from bs4 import BeautifulSoup
+import requests
+from gnews import GNews
 
-
-
-query = input("Enter your query - ")
+# query = input("Enter your query - ")
 
 
 def parse_google(query):
@@ -218,15 +219,14 @@ def parse_google(query):
     google_res = {
         "query": query,
         "name_smi": "Google",
-        "dict_query": {cleared_result}
+        "dict_query": cleared_result
     }
 
     return google_res
 
-
-def parse_twitter(query):
+def parse_twitter(q):
     client = tweepy.Client(bearer_token=config.BEARER_TOKEN)
-    query = f"{query} -is:retweet lang:uk"
+    query = f"{q} -is:retweet lang:uk"
     tweet_flags = ['created_at', 'lang', 'text', "public_metrics"]
 
     tweets = client.search_recent_tweets(query=query, max_results=10,
@@ -235,18 +235,18 @@ def parse_twitter(query):
                                          expansions=['geo.place_id', 'author_id'])
     users = {u['id']: u for u in tweets.includes['users']}
     response = {
-        "query": query,
+        "query": q,
         "flags": tweet_flags,
         "tweets": []
     }
     for tweet in tweets.data:
         if users[tweet.author_id]:
-            user = users[tweet.author_id]  #
-            lang = tweet.lang  #
-            text = tweet.text  #
-            public = tweet.public_metrics  #
-            date = tweet.created_at  #
-            name = user.name  #
+            user = users[tweet.author_id]
+            lang = tweet.lang
+            text = tweet.text
+            public = tweet.public_metrics
+            date = tweet.created_at
+            name = user.name
             tag = user.username
             tweet_data = {'username': name,
                           'tag': tag,
@@ -257,7 +257,6 @@ def parse_twitter(query):
                           "replies": public["reply_count"],
                           "likes": public["like_count"]}
             response['tweets'].append(tweet_data)
-
     return response
 
 def parse_tg(query, n_posts):
@@ -303,7 +302,32 @@ def parse_tg(query, n_posts):
     # print(len(b['message']))
     return response
 
+def parse_actual_news(country, period, max_results):
+    google_news = GNews(language='uk', country=country, period=period, max_results=max_results)
+    recent_news = google_news.get_top_news()
+
+    response = []
+
+    for news in recent_news:
+        news_paper = {}
+
+        news_paper['title'] = news['title']
+        news_paper['text'] = news['description']
+        news_paper['date'] = news['published date']
+        news_paper['link'] = news['url']
+        news_paper['author'] = news['publisher']['title']
+
+        article = google_news.get_full_article(news['url'])
+        images = []
+        for image in article.images:
+            if ".jpg" in image or '.png' in image:
+                images.append(image)
+
+        news_paper['image'] = images
+        response.append(news_paper)
+    return response
 
 google_result = parse_google(query)
 twitter_result = parse_twitter(query)
-tg_result = parse_tg(query, n_posts)
+tg_result = parse_tg(query, 1)
+actual_news = parse_actual_news(country="UA", period="12h", max_results=10)
