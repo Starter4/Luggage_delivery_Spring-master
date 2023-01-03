@@ -322,7 +322,7 @@ def parse_actual_news(country, period, max_results):
         for image in article.images:
             if ".jpg" in image or '.png' in image:
                 images.append(image)
-
+                break
         news_paper['image'] = images
         response.append(news_paper)
     return response
@@ -331,3 +331,5 @@ google_result = parse_google(query)
 twitter_result = parse_twitter(query)
 tg_result = parse_tg(query, 1)
 actual_news = parse_actual_news(country="UA", period="12h", max_results=10)
+
+
