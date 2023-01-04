@@ -1,15 +1,19 @@
-package com.example.mainservice.payload.request;
+package com.example.mainservice.payload.request.registration;
 
+import com.example.mainservice.validations.annotations.PasswordMatches;
+import com.example.mainservice.validations.annotations.ValidEmail;
 import lombok.Data;
 
 import javax.validation.constraints.*;
 
 @Data
+@PasswordMatches
 public class SignupRequest {
 
     @Email(message = "It should have email format")
     @NotBlank(message = "User email is required")
-    @Pattern(regexp = "^([A-Za-z0-9_-]+\\.)*[A-Za-z0-9_-]+@[a-z0-9_-]+(\\.[a-z0-9_-]+)*\\.[a-z]{2,6}$")
+    //@Pattern(regexp = "^([A-Za-z0-9_-]+\\.)*[A-Za-z0-9_-]+@[a-z0-9_-]+(\\.[a-z0-9_-]+)*\\.[a-z]{2,6}$")
+    @ValidEmail
     private String email;
     @NotEmpty(message = "Please enter your name")
     private String firstname;

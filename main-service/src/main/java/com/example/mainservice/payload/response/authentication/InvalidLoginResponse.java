@@ -1,4 +1,4 @@
-package com.example.mainservice.payload.response;
+package com.example.mainservice.payload.response.authentication;
 
 import lombok.Getter;
 

@@ -3,10 +3,10 @@ package com.example.mainservice.web;
 import com.example.mainservice.payload.request.authentication.LoginRequest;
 import com.example.mainservice.security.JwtTokenProvider;
 import com.example.mainservice.service.serviceImplementation.UserServiceI;
+import com.example.mainservice.validations.ResponseErrorValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -27,20 +27,20 @@ public class AuthController {
 
     private final JwtTokenProvider jwtTokenProvider;
     private final AuthenticationManager authenticationManager;
-    /*@Autowired
-    private ResponseErrorValidation responseErrorValidation;*/
+    private final ResponseErrorValidator responseErrorValidator;
     private final UserServiceI userService;
 
     @Autowired
-    public AuthController(JwtTokenProvider jwtTokenProvider, AuthenticationManager authenticationManager, UserServiceI userService) {
+    public AuthController(JwtTokenProvider jwtTokenProvider, AuthenticationManager authenticationManager, ResponseErrorValidator responseErrorValidator, UserServiceI userService) {
         this.jwtTokenProvider = jwtTokenProvider;
         this.authenticationManager = authenticationManager;
+        this.responseErrorValidator = responseErrorValidator;
         this.userService = userService;
     }
 
     /*@PostMapping("/login")
     public ResponseEntity<Object> authenticateUser(@Valid @RequestBody LoginRequest loginRequest, BindingResult bindingResult) {
-        ResponseEntity<Object> errors = responseErrorValidation.mapValidationService(bindingResult);
+        ResponseEntity<Object> errors = responseErrorValidator.mapValidationService(bindingResult);
         if (!ObjectUtils.isEmpty(errors)) return errors;
 
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
