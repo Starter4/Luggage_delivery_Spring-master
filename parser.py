@@ -319,10 +319,13 @@ def parse_actual_news(country, period, max_results):
 
         article = google_news.get_full_article(news['url'])
         images = []
-        for image in article.images:
-            if ".jpg" in image or '.png' in image:
-                images.append(image)
-                break
+        try:
+            for image in article.images:
+                if ".jpg" in image or '.png' in image:
+                    images.append(image)
+                    break
+        except:
+            images = [""]
         news_paper['image'] = images
         response.append(news_paper)
     return response
