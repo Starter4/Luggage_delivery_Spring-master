@@ -2,12 +2,11 @@ package com.example.mainservice.payload.response.authentication;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
-public class InvalidLoginResponse {
-    private String username;
-    private String password;
+public class JWTTokenSuccessResponse {
+    private boolean isSuccess;
+    private String token;
 }

@@ -1,6 +1,7 @@
 package com.example.mainservice.web;
 
 import com.example.mainservice.payload.request.authentication.LoginRequest;
+import com.example.mainservice.payload.response.authentication.JWTTokenSuccessResponse;
 import com.example.mainservice.security.JwtTokenProvider;
 import com.example.mainservice.service.serviceImplementation.UserServiceI;
 import com.example.mainservice.validations.ResponseErrorValidator;
@@ -38,7 +39,7 @@ public class AuthController {
         this.userService = userService;
     }
 
-    /*@PostMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<Object> authenticateUser(@Valid @RequestBody LoginRequest loginRequest, BindingResult bindingResult) {
         ResponseEntity<Object> errors = responseErrorValidator.mapValidationService(bindingResult);
         if (!ObjectUtils.isEmpty(errors)) return errors;
@@ -52,7 +53,7 @@ public class AuthController {
         String jwt = TOKEN_PREFIX + jwtTokenProvider.createToken(authentication);
 
         return ResponseEntity.ok(new JWTTokenSuccessResponse(true, jwt));
-    }*/
+    }
 
 
     /*@PostMapping("/signup")
