@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,13 +25,23 @@ public class TagServiceI implements TagService {
     }
 
     @Override
-    public void addTag(TagDTO tagDTO) {
-
+    public void addTag(Tag tag) {
+        tagRepository.save(tag);
     }
 
     @Override
-    public void updateTag(TagDTO tagDTO, Long id) {
+    public Tag getByTagName(String tagName) {
+        return tagRepository.findByTagName(tagName);
+    }
 
+    @Override
+    public List<Tag> getAllTags() {
+        return tagRepository.findAll();
+    }
+
+    @Override
+    public void updateTag(Tag tag) {
+        tagRepository.save(tag);
     }
 
     @Override
@@ -58,4 +69,18 @@ public class TagServiceI implements TagService {
     public void deleteTagByTagName(String tagName) {
         tagRepository.deleteTagByTagName(tagName);
     }
+
+//    private TagDTO convertTagToDTO(Tag tag) {
+//        TagDTO tagDTO = new TagDTO();
+//        tagDTO.setId(tag.getId());
+//        tagDTO.setCreated(tag.getCreated());
+//        tagDTO.setUpdated(tag.getUpdated());
+//        tagDTO.setCreatedBy(tag.getCreatedBy());
+//        tagDTO.setLastModifiedBy(tag.getLastModifiedBy());
+//
+//        tagDTO.setEnable(true);
+//        tagDTO.setUserDTOSet();
+//
+//        return tagDTO;
+//    }
 }

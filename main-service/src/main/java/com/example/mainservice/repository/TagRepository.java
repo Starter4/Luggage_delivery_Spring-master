@@ -8,10 +8,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.util.Optional;
-
 public interface TagRepository extends JpaRepository<Tag,Long> {
-    Optional<Tag> findByTagName(String tagName);
+    Tag findByTagName(String tagName);
     @Override
     Page<Tag> findAll(Pageable pageable);
     Page<Tag> findTagsByUserTagSet_Login(String login, Pageable pageable);

@@ -6,6 +6,8 @@ import com.example.mainservice.service.serviceInterface.ConfirmationTokenService
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ConfirmationTokenServiceI implements ConfirmationTokenService {
@@ -17,7 +19,17 @@ public class ConfirmationTokenServiceI implements ConfirmationTokenService {
     }
 
     @Override
+    public List<ConfirmationToken> findAllTokens() {
+        return tokenRepository.findAll();
+    }
+
+    @Override
     public void saveToken(ConfirmationToken token) {
+        tokenRepository.save(token);
+    }
+
+    @Override
+    public void updateToken(ConfirmationToken token) {
         tokenRepository.save(token);
     }
 
@@ -25,6 +37,5 @@ public class ConfirmationTokenServiceI implements ConfirmationTokenService {
     public void deleteToken(String token) {
         tokenRepository.deleteByToken(token);
     }
-
 
 }

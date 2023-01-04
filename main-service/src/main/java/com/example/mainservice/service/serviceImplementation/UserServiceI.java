@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -45,5 +46,30 @@ public class UserServiceI implements UserService {
 
         confirmationTokenServiceI.saveToken(confirmationToken);
         return token;
+    }
+
+    @Override
+    public Optional<User> findUserById(long id) {
+        return userRepository.findById(id);
+    }
+
+    @Override
+    public Optional<User> findUserByLogin(String login) {
+        return userRepository.findUserByLogin(login);
+    }
+
+    @Override
+    public void updateUser(User user) {
+        userRepository.save(user);
+    }
+
+    @Override
+    public void deleteUserById(long id) {
+        userRepository.deleteById(id);
+    }
+
+    @Override
+    public void deleteUserByLogin(String login) {
+        userRepository.deleteByLogin(login);
     }
 }
