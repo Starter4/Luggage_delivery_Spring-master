@@ -8,6 +8,7 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
@@ -32,6 +33,7 @@ public class MailServiceI implements SendLetterService {
         this.javaMailSender = javaMailSender;
     }
 
+    @Async
     public void sendSimpleMessage(String to, String subject, String text) {
         log.debug("In the sendSimpleMessage method");
         SimpleMailMessage message = new SimpleMailMessage();
@@ -44,6 +46,7 @@ public class MailServiceI implements SendLetterService {
         log.debug("End of sendSimpleMessage method");
     }
 
+    @Async
     public void sendMessageWithHTML(String to, String subject, String messageToSend) throws MessagingException {
         log.debug("In the sendMessageWithHTML method");
         MimeMessage message = javaMailSender.createMimeMessage();
@@ -69,6 +72,7 @@ public class MailServiceI implements SendLetterService {
         log.debug("End of sendMessageWithHTML method");
     }
 
+    @Async
     public void sendMessageWithAttachment(String to, String subject, String text, String pathToAttachment) throws MessagingException {
         log.debug("In the sendMessageWithAttachment method");
         MimeMessage message = javaMailSender.createMimeMessage();

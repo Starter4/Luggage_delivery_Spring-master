@@ -67,6 +67,7 @@ public class JwtUser implements UserDetails {
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
+        //return enabled;
     }
 
     public String getFirstname() {

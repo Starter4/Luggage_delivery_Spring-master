@@ -72,14 +72,15 @@ public class MailController {
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         HttpEntity<String> entity = new HttpEntity<>(headers);
         restTemplate.exchange("http://localhost:8050/parse/twitter", HttpMethod.GET,entity,String.class);*/
-        webClientBuilder
+        String b = webClientBuilder
                 .build()
                 .get()
                 .uri("http://parser-service/parse/twitter")
-                .retrieve();
-                //.bodyToMono(String.class)
-        //.block();
-        //System.out.println(b);
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
+
+        System.out.println(b);
         System.out.println("parser-service sendGet");
     }
 
