@@ -11,8 +11,9 @@ from bs4 import BeautifulSoup
 import requests
 from gnews import GNews
 
-# query = input("Enter your query - ")
+query = input("Enter your query - ")
 
+limit = 50
 
 def parse_google(query):
     def parse_google_search(query, output, count_pages):
@@ -134,7 +135,7 @@ def parse_google(query):
                     item = {
                         'title': title,
                         'link': link,
-                        'text': text,
+                        'text': (text[:limit]+"..." if len(text)>limit else text),
                         'bold': bold,
                     }
 
@@ -250,7 +251,7 @@ def parse_twitter(q):
             tag = user.username
             tweet_data = {'username': name,
                           'tag': tag,
-                          'text': text,
+                          'text': text[:limit]+"..." if len(text)>limit else text,
                           'date': date,
                           'lang': lang,
                           'retweets': public['retweet_count'],
@@ -280,7 +281,8 @@ def parse_tg(query, n_posts):
         for content in tgpost:
             if count < n_posts:
                 full_message = {}
-                full_message['text'] = content.find('div', class_='tgme_widget_message_text').text
+                text = content.find('div', class_='tgme_widget_message_text').text
+                full_message['text'] = text[:limit]+"..." if len(text)>limit else text
                 full_message['views'] = content.find('span', class_='tgme_widget_message_views').text
                 full_message['timestamp'] = content.find('time', class_='time').text
 
@@ -312,11 +314,11 @@ def parse_actual_news(country, period, max_results):
         news_paper = {}
 
         news_paper['title'] = news['title']
-        news_paper['text'] = news['description']
+        news_paper['text'] = (news['description'][:limit]+"..." if len(news['description'])>limit else news['description'])
         news_paper['date'] = news['published date']
         news_paper['link'] = news['url']
         news_paper['author'] = news['publisher']['title']
-
+        news_paper['author_link'] = news['publisher']['href']
         article = google_news.get_full_article(news['url'])
         images = ''
         for i in range(1):
@@ -333,6 +335,4 @@ def parse_actual_news(country, period, max_results):
 google_result = parse_google(query)
 twitter_result = parse_twitter(query)
 tg_result = parse_tg(query, 1)
-actual_news = parse_actual_news(country="UA", period="12h", max_results=10)
-
-
+actual_news = parse_actual_news(country="UA", period="12h", max_results=150)
