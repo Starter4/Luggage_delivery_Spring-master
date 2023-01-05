@@ -32,8 +32,8 @@ public class SourceController {
     }
 
     @GetMapping("/get/name/{sourceName}")
-    public List<Source> getSourcesByName(@PathVariable String sourceName) {
-        return sourceService.getAllSourcesByName(sourceName);
+    public Source getSourcesByName(@PathVariable String sourceName) {
+        return sourceService.getSourcesByName(sourceName);
     }
 
     @GetMapping("/get/status/{sourceStatus}")

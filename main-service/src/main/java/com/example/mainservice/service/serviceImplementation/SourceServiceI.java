@@ -31,8 +31,8 @@ public class SourceServiceI implements SourceService {
     }
 
     @Override
-    public List<Source> getAllSourcesByName(String sourceName) {
-        return sourceRepository.findAllBySourceName(sourceName);
+    public Source getSourcesByName(String sourceName) {
+        return sourceRepository.findBySourceName(sourceName);
     }
 
     @Override

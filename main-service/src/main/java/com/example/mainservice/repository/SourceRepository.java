@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface SourceRepository extends JpaRepository<Source,Long> {
-    List<Source> findAllBySourceName(String sourceName);
     List<Source> findAllByActive(boolean activeStatus);
     void deleteBySourceName(String sourceName);
+    Source findBySourceName(String sourceName);
 }

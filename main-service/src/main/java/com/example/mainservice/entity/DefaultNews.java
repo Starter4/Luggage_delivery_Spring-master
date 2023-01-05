@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -27,22 +28,22 @@ public class DefaultNews{
     @Column(name = "id")
     private Long id;
 
-    @CreatedDate
+    //@CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created")
     private Date created;
 
-    @LastModifiedDate
+    /*@LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated")
     private Date updated;
 
     @LastModifiedBy
     @Column(name = "last_modified_by")
-    private String lastModifiedBy;
+    private String lastModifiedBy;*/
 
     @NotNull
-    @Size(max = 64)
+    @Size(max = 256)
     @Column(name = "title")
     private String title;
 
@@ -55,12 +56,15 @@ public class DefaultNews{
     @Column(name = "link")
     private String link;
 
-    // need to be replaced
-    @Column(name = "image")
-    private byte[] imageBytesArray;
+    @Size(max = 256)
+    @Column(name = "image_link")
+    private String imageLink;
 
     @Column(name = "active")
     private boolean active;
+
+    @Column(name = "published_date")
+    private Date publishedDate;
 
     @ManyToOne
     @JoinColumn(name = "source_id")

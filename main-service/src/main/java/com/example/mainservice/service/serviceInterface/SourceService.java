@@ -7,7 +7,7 @@ import java.util.List;
 public interface SourceService {
     void addNewSource(Source source);
     Source getSourceById(long id);
-    List<Source> getAllSourcesByName(String sourceName);
+    Source getSourcesByName(String sourceName);
     List<Source> getAllSourcesByStatus(boolean sourceStatus);
     void updateSource(Source source);
     void deleteSourceById(long id);
