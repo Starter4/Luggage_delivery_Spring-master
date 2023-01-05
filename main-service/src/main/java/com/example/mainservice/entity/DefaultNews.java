@@ -55,6 +55,7 @@ public class DefaultNews{
     @Column(name = "link")
     private String link;
 
+    // need to be replaced
     @Column(name = "image")
     private byte[] imageBytesArray;
 

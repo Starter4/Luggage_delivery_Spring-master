@@ -37,19 +37,19 @@ public class DefaultNewsController {
         return newsService.getAllDefaultNews();
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public ResponseEntity<?> updateNews(@ModelAttribute DefaultNews news) {
         newsService.updateDefaultNews(news);
         return ResponseEntity.ok(news);
     }
 
-    @PostMapping("/delete/id/{newsId}")
+    @DeleteMapping("/delete/id/{newsId}")
     public ResponseEntity<?> deleteNewsById(@PathVariable long newsId) {
         newsService.deleteNewsById(newsId);
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/delete/title/{title}")
+    @DeleteMapping("/delete/title/{title}")
     public ResponseEntity<?> deleteNewsByTitle(@PathVariable String title) {
         newsService.deleteByTitle(title);
         return ResponseEntity.ok().build();

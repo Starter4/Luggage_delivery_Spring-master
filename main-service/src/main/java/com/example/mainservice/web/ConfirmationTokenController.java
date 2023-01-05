@@ -36,13 +36,13 @@ public class ConfirmationTokenController {
         return tokenService.findAllTokens();
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public ResponseEntity<?> updateToken(@ModelAttribute ConfirmationToken token) {
         tokenService.updateToken(token);
         return ResponseEntity.ok(token);
     }
 
-    @PostMapping("/delete/{token}")
+    @DeleteMapping("/delete/{token}")
     public ResponseEntity<?> deleteToken(@PathVariable String token) {
         tokenService.deleteToken(token);
         return ResponseEntity.ok().build();

@@ -35,19 +35,19 @@ public class UserController {
         return ResponseEntity.ok(userService.findUserByLogin(userLogin).orElse(null));
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public ResponseEntity<?> updateUser(@ModelAttribute User user) {
         userService.updateUser(user);
         return ResponseEntity.ok(user);
     }
 
-    @PostMapping("/delete/id/{userId}")
+    @DeleteMapping("/delete/id/{userId}")
     public ResponseEntity<?> deleteUserById(@PathVariable long userId) {
         userService.deleteUserById(userId);
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/delete/login/{userLogin}")
+    @DeleteMapping("/delete/login/{userLogin}")
     public ResponseEntity<?> deleteUserByLogin(@PathVariable String userLogin) {
         userService.deleteUserByLogin(userLogin);
         return ResponseEntity.ok().build();

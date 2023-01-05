@@ -41,19 +41,19 @@ public class SourceController {
         return sourceService.getAllSourcesByStatus(sourceStatus);
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public ResponseEntity<?> updateSource(@ModelAttribute Source source) {
         sourceService.updateSource(source);
         return ResponseEntity.ok(source);
     }
 
-    @PostMapping("/delete/id/{sourceId}")
+    @DeleteMapping("/delete/id/{sourceId}")
     public ResponseEntity<?> deleteSourceById(@PathVariable long sourceId) {
         sourceService.deleteSourceById(sourceId);
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/delete/name/{sourceName}")
+    @DeleteMapping("/delete/name/{sourceName}")
     public ResponseEntity<?> deleteSourcesByName(@PathVariable String sourceName) {
         sourceService.deleteSourceByName(sourceName);
         return ResponseEntity.ok().build();

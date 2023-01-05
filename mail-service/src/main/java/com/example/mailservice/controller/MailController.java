@@ -13,7 +13,7 @@ import javax.mail.MessagingException;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = "/api/v2/mail")
+@RequestMapping(path = "/api/v1/mail")
 //@CrossOrigin("http://localhost:8080")
 public class MailController {
 
@@ -35,6 +35,16 @@ public class MailController {
     public String sendLetterGet(){
         System.out.println("mail-service GET");
         return "OK";
+    }
+
+    @PostMapping("/send/token")
+    public ResponseEntity<MailResponse> sentConfirmToken(@RequestBody MailRequest mailRequest){
+        try {
+            sendLetterService.sendLatterWithToken(mailRequest);
+            return new ResponseEntity<>(new MailResponse(MailStatus.SEND),HttpStatus.OK);
+        } catch (MessagingException e) {
+            return new ResponseEntity<>(new MailResponse(MailStatus.ERROR),HttpStatus.BAD_GATEWAY);
+        }
     }
 
 

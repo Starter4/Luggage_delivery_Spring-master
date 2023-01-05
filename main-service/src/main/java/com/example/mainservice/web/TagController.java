@@ -37,13 +37,13 @@ public class TagController {
         return tagService.getAllTags();
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public ResponseEntity<?> updateTag(@ModelAttribute Tag tag) {
         tagService.updateTag(tag);
         return ResponseEntity.ok(tag);
     }
 
-    @PostMapping("/delete/{tagName}")
+    @DeleteMapping("/delete/{tagName}")
     public ResponseEntity<?> deleteTag(@PathVariable String tagName) {
         tagService.deleteTagByTagName(tagName);
         return ResponseEntity.ok().build();

@@ -55,7 +55,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     private String getJwtFromRequest(HttpServletRequest request){
-        System.out.println("Header: " + header);
         String beatToken = request.getHeader(header);
         if(StringUtils.hasText(beatToken) && beatToken.startsWith(header)){
             return beatToken.split(" ")[1];

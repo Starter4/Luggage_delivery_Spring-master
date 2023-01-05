@@ -41,13 +41,13 @@ public class MediaPlatformController {
         return mediaPlatformService.getAllByPlatformName(platformName);
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public ResponseEntity<?> updatePlatform(@ModelAttribute MediaPlatform mediaPlatform) {
         mediaPlatformService.updateMediaPlatform(mediaPlatform);
         return ResponseEntity.ok(mediaPlatform);
     }
 
-    @PostMapping("/delete/{platformId}")
+    @DeleteMapping("/delete/{platformId}")
     public ResponseEntity<?> deletePlatformById(@PathVariable long platformId) {
         mediaPlatformService.deleteMediaPlatformById(platformId);
         return ResponseEntity.ok().build();

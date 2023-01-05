@@ -13,4 +13,5 @@ public class ActualNews {
     private String publishedDate;
     private String newsLink;
     private String newsResource;
+    private String imageLink;
 }

@@ -5,6 +5,7 @@ import com.example.mainservice.payload.request.mailMicroservice.MailRequest;
 import com.example.mainservice.payload.request.parserMicroservice.ParserRequest;
 import com.example.mainservice.payload.request.parserMicroservice.TelegramParserRequest;
 import com.example.mainservice.payload.response.mailMicroservice.MailResponse;
+import com.example.mainservice.payload.response.parserMicroservice.ActualNews;
 import com.example.mainservice.payload.response.parserMicroservice.ActualNewsResponse;
 import com.example.mainservice.payload.response.parserMicroservice.ParserResponse;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
+
+import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -68,6 +71,14 @@ public class ParserController {
 
     @GetMapping("/actual")
     private ResponseEntity<ActualNewsResponse> parseActualNews(){
+        /*List<ActualNews> actualNewsResponse =
+                List.of(new ActualNews("Test1","Test1","Test1","Test1","Test1"),
+                        new ActualNews("Test2","Test2","Test2","Test2","Test2")
+        );*/
+        /*ActualNewsResponse actualNewsResponse = new ActualNewsResponse(
+                List.of(new ActualNews("Test1","Test1","Test1","Test1","Test1"),
+                        new ActualNews("Test2","Test2","Test2","Test2","Test2"))
+                );*/
         ActualNewsResponse actualNewsResponse = webClientBuilder
                 .build()
                 .post()

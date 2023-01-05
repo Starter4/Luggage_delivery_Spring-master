@@ -32,4 +32,18 @@ public class SendLetterServiceI {
         }*/
         mailService.sendMessageWithHTML(email,title,letterBody);
     }
+
+    public void sendLatterWithToken(MailRequest mailRequest) throws MessagingException {
+        String title = mailRequest.getTitle();
+        String email = mailRequest.getEmail();
+        String username = mailRequest.getUsername();
+        String token = mailRequest.getToken();
+        String emailText = "Mr/Mrs "+ username+".\n"+ "Please confirm you registration(tap to link):\n"+token;
+        try {
+            mailService.sendSimpleMessage(email,title,emailText);
+        }catch (Exception e){
+            throw new MessagingException();
+        }
+
+    }
 }
