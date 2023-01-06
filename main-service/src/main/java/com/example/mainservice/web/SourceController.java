@@ -1,5 +1,6 @@
 package com.example.mainservice.web;
 
+import com.example.mainservice.dto.SourceDTO;
 import com.example.mainservice.entity.Source;
 import com.example.mainservice.service.serviceInterface.SourceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,17 +28,17 @@ public class SourceController {
     }
 
     @GetMapping("/get/id/{sourceId}")
-    public Source getSourceById(@PathVariable long sourceId) {
+    public SourceDTO getSourceById(@PathVariable long sourceId) {
         return sourceService.getSourceById(sourceId);
     }
 
     @GetMapping("/get/name/{sourceName}")
-    public Source getSourcesByName(@PathVariable String sourceName) {
+    public SourceDTO getSourcesByName(@PathVariable String sourceName) {
         return sourceService.getSourcesByName(sourceName);
     }
 
     @GetMapping("/get/status/{sourceStatus}")
-    public List<Source> getSourcesByStatus(@PathVariable boolean sourceStatus) {
+    public List<SourceDTO> getSourcesByStatus(@PathVariable boolean sourceStatus) {
         return sourceService.getAllSourcesByStatus(sourceStatus);
     }
 

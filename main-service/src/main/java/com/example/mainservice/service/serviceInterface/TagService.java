@@ -11,8 +11,8 @@ import java.util.Optional;
 public interface TagService {
     Optional<Tag> findTagByTagName(String tagName);
     void addTag(Tag tag);
-    Tag getByTagName(String tagName);
-    List<Tag> getAllTags();
+    TagDTO getByTagName(String tagName);
+    List<TagDTO> getAllTags();
     void updateTag(Tag tag);
 
 

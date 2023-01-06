@@ -5,6 +5,7 @@ import com.example.mainservice.repository.ConfirmationTokenRepository;
 import com.example.mainservice.service.serviceInterface.ConfirmationTokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -34,6 +35,7 @@ public class ConfirmationTokenServiceI implements ConfirmationTokenService {
     }
 
     @Override
+    @Transactional
     public void deleteToken(String token) {
         tokenRepository.deleteByToken(token);
     }

@@ -1,9 +1,6 @@
 package com.example.mainservice.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 import java.util.Set;
@@ -12,8 +9,10 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class SourceDTO {
     private Long id;
+    private String sourceName;
     private Date created;
     private Date updated;
     private String createdBy;

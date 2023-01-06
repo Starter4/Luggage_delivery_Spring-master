@@ -1,11 +1,14 @@
 package com.example.mainservice.service.serviceImplementation;
 
+import com.example.mainservice.dto.MediaPlatformDTO;
 import com.example.mainservice.entity.MediaPlatform;
+import com.example.mainservice.facade.MediaPlatformFacade;
 import com.example.mainservice.repository.MediaPlatformRepository;
 import com.example.mainservice.service.serviceInterface.MediaPlatformService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 //TODO create method to transfer MediaPlatform -> MediaPlatformDTO
 
@@ -13,9 +16,12 @@ import java.util.List;
 public class MediaPlatformServiceI implements MediaPlatformService {
 
     private final MediaPlatformRepository mediaPlatformRepository;
+    private final MediaPlatformFacade platformFacade;
 
-    public MediaPlatformServiceI(MediaPlatformRepository mediaPlatformRepository) {
+    public MediaPlatformServiceI(MediaPlatformRepository mediaPlatformRepository,
+                                 MediaPlatformFacade platformFacade) {
         this.mediaPlatformRepository = mediaPlatformRepository;
+        this.platformFacade = platformFacade;
     }
 
     @Override
@@ -24,19 +30,22 @@ public class MediaPlatformServiceI implements MediaPlatformService {
     }
 
     @Override
-    public MediaPlatform getById(long id) {
-        return mediaPlatformRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException(String.format("Media platform with id %d is not found", id)));
+    public MediaPlatformDTO getById(long id) {
+        return platformFacade.convertPlatformToPlatformDTO(mediaPlatformRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException(String.format("Media platform with id %d is not found", id))));
     }
 
     @Override
-    public List<MediaPlatform> getAll() {
-        return mediaPlatformRepository.findAll();
+    public List<MediaPlatformDTO> getAll() {
+        return mediaPlatformRepository.findAll().stream()
+                .map(platformFacade::convertPlatformToPlatformDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<MediaPlatform> getAllByPlatformName(String mediaPlatformName) {
-        return mediaPlatformRepository.findAllByMediaPlatform(mediaPlatformName);
+    public MediaPlatformDTO getAllByPlatformName(String mediaPlatformName) {
+        return platformFacade.convertPlatformToPlatformDTO(
+                mediaPlatformRepository.findByMediaPlatform(mediaPlatformName));
     }
 
     @Override

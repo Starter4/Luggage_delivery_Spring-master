@@ -8,6 +8,5 @@ import java.util.List;
 
 @Repository
 public interface MediaPlatformRepository extends JpaRepository<MediaPlatform,Long> {
-    List<MediaPlatform> findAllByMediaPlatform(String name);
     MediaPlatform findByMediaPlatform(String media);
 }

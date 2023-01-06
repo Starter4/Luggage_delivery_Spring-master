@@ -1,5 +1,6 @@
 package com.example.mainservice.web;
 
+import com.example.mainservice.dto.UserDTO;
 import com.example.mainservice.entity.User;
 import com.example.mainservice.payload.request.registration.SignupRequest;
 import com.example.mainservice.service.serviceInterface.UserService;
@@ -21,18 +22,17 @@ public class UserController {
 
     @PostMapping("/add")
     public ResponseEntity<?> addNewUser(SignupRequest signupRequest) {
-
         return ResponseEntity.ok(userService.createUser(signupRequest));
     }
 
     @GetMapping("/get/id/{userId}")
-    public ResponseEntity<?> getUserById(@PathVariable long userId) {
-        return ResponseEntity.ok(userService.findUserById(userId).orElse(null));
+    public UserDTO getUserById(@PathVariable long userId) {
+        return userService.findUserById(userId).orElse(null);
     }
 
     @GetMapping("/get/login/{userLogin}")
-    public ResponseEntity<?> getUserByLogin(@PathVariable String userLogin) {
-        return ResponseEntity.ok(userService.findUserByLogin(userLogin).orElse(null));
+    public UserDTO getUserByLogin(@PathVariable String userLogin) {
+        return userService.findUserByLogin(userLogin).orElse(null);
     }
 
     @PutMapping("/update")

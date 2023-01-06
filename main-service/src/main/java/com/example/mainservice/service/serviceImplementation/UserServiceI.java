@@ -1,9 +1,11 @@
 package com.example.mainservice.service.serviceImplementation;
 
 import com.example.mainservice.configurtion.CustomBCryptPasswordEncoder;
+import com.example.mainservice.dto.UserDTO;
 import com.example.mainservice.entity.ConfirmationToken;
 import com.example.mainservice.entity.User;
 import com.example.mainservice.entity.enums.Role;
+import com.example.mainservice.facade.UserFacade;
 import com.example.mainservice.payload.request.registration.SignupRequest;
 import com.example.mainservice.repository.UserRepository;
 import com.example.mainservice.service.serviceInterface.UserService;
@@ -22,7 +24,7 @@ public class UserServiceI implements UserService {
     private final UserRepository userRepository;
     private final CustomBCryptPasswordEncoder bCryptPasswordEncoder;
     private final ConfirmationTokenServiceI confirmationTokenServiceI;
-    //private final UserFacade userFacade;
+    private final UserFacade userFacade;
 
     @Transactional
     public String createUser(SignupRequest signupRequest){
@@ -49,13 +51,15 @@ public class UserServiceI implements UserService {
     }
 
     @Override
-    public Optional<User> findUserById(long id) {
-        return userRepository.findById(id);
+    public Optional<UserDTO> findUserById(long id) {
+        return userRepository.findById(id)
+                .map(userFacade::convertUserToDTO);
     }
 
     @Override
-    public Optional<User> findUserByLogin(String login) {
-        return userRepository.findUserByLogin(login);
+    public Optional<UserDTO> findUserByLogin(String login) {
+        return userRepository.findUserByLogin(login)
+                .map(userFacade::convertUserToDTO);
     }
 
     @Override
@@ -69,6 +73,7 @@ public class UserServiceI implements UserService {
     }
 
     @Override
+    @Transactional
     public void deleteUserByLogin(String login) {
         userRepository.deleteByLogin(login);
     }

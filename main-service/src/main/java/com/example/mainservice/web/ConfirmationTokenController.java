@@ -28,6 +28,7 @@ public class ConfirmationTokenController {
 
     @GetMapping("/get/{token}")
     public ConfirmationToken getToken(@PathVariable String token) {
+        System.out.println("Comes over here???");
         return tokenService.findByToken(token);
     }
 

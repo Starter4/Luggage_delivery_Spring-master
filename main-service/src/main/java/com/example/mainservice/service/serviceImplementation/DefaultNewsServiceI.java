@@ -80,6 +80,7 @@ public class DefaultNewsServiceI implements DefaultNewsService {
     }
 
     @Override
+    @Transactional
     public void deleteByTitle(String titleName) {
         defaultNewsRepository.deleteByTitle(titleName);
     }

@@ -1,9 +1,6 @@
 package com.example.mainservice.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 
@@ -11,12 +8,13 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class MediaPlatformDTO {
     private Long id;
     private Date created;
     private Date updated;
     private String createdBy;
     private String lastModifiedBy;
-    private String mediaPlatform;
+    private String platformName;
     private boolean active;
 }

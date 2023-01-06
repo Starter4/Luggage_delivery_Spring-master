@@ -1,5 +1,6 @@
 package com.example.mainservice.web;
 
+import com.example.mainservice.dto.TagDTO;
 import com.example.mainservice.entity.Tag;
 import com.example.mainservice.service.serviceInterface.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +29,12 @@ public class TagController {
     }
 
     @GetMapping("/get/{tagName}")
-    public Tag getByTagName(@PathVariable String tagName) {
+    public TagDTO getByTagName(@PathVariable String tagName) {
         return tagService.getByTagName(tagName);
     }
 
     @GetMapping("/get")
-    public List<Tag> getAllTags() {
+    public List<TagDTO> getAllTags() {
         return tagService.getAllTags();
     }
 

@@ -2,6 +2,7 @@ package com.example.mainservice.service.serviceImplementation;
 
 import com.example.mainservice.dto.TagDTO;
 import com.example.mainservice.entity.Tag;
+import com.example.mainservice.facade.TagFacade;
 import com.example.mainservice.repository.TagRepository;
 import com.example.mainservice.service.serviceInterface.TagService;
 import lombok.RequiredArgsConstructor;
@@ -10,14 +11,17 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class TagServiceI implements TagService {
     private final TagRepository tagRepository;
+    private final TagFacade tagFacade;
 
     @Override
     public Optional<Tag> findTagByTagName(String tagName) {
@@ -30,13 +34,15 @@ public class TagServiceI implements TagService {
     }
 
     @Override
-    public Tag getByTagName(String tagName) {
-        return tagRepository.findByTagName(tagName);
+    public TagDTO getByTagName(String tagName) {
+        return tagFacade.convertTagToDTO(tagRepository.findByTagName(tagName));
     }
 
     @Override
-    public List<Tag> getAllTags() {
-        return tagRepository.findAll();
+    public List<TagDTO> getAllTags() {
+        return tagRepository.findAll().stream()
+                .map(tagFacade::convertTagToDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -66,6 +72,7 @@ public class TagServiceI implements TagService {
     }
 
     @Override
+    @Transactional
     public void deleteTagByTagName(String tagName) {
         tagRepository.deleteTagByTagName(tagName);
     }

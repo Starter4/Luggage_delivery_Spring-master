@@ -1,5 +1,6 @@
 package com.example.mainservice.web;
 
+import com.example.mainservice.dto.MediaPlatformDTO;
 import com.example.mainservice.entity.MediaPlatform;
 import com.example.mainservice.service.serviceInterface.MediaPlatformService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,17 +28,17 @@ public class MediaPlatformController {
     }
 
     @GetMapping("/get")
-    public List<MediaPlatform> getAllPlatforms() {
+    public List<MediaPlatformDTO> getAllPlatforms() {
         return mediaPlatformService.getAll();
     }
 
     @GetMapping("/get/id/{platformId}")
-    public MediaPlatform getPlatformById(@PathVariable long platformId) {
+    public MediaPlatformDTO getPlatformById(@PathVariable long platformId) {
         return mediaPlatformService.getById(platformId);
     }
 
     @GetMapping("/get/name/{platformName}")
-    public List<MediaPlatform> getAllByPlatformName(@PathVariable String platformName) {
+    public MediaPlatformDTO getAllByPlatformName(@PathVariable String platformName) {
         return mediaPlatformService.getAllByPlatformName(platformName);
     }
 

@@ -9,8 +9,10 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class TagDTO {
     private Long id;
+    private String tagName;
     private Date created;
     private Date updated;
     private String createdBy;
