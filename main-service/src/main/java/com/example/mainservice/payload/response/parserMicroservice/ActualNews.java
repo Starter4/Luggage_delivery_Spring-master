@@ -14,4 +14,5 @@ public class ActualNews {
     private String newsLink;
     private String newsResource;
     private String imageLink;
+    private String resourceType;
 }

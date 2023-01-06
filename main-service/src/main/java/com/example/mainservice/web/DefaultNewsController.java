@@ -1,22 +1,28 @@
 package com.example.mainservice.web;
 
 
+import com.example.mainservice.dto.DefaultNewsDTO;
 import com.example.mainservice.entity.DefaultNews;
+import com.example.mainservice.payload.request.parserMicroservice.ParserRequest;
+import com.example.mainservice.payload.request.parserMicroservice.TelegramParserRequest;
 import com.example.mainservice.payload.response.parserMicroservice.ActualNewsResponse;
 import com.example.mainservice.service.serviceInterface.DefaultNewsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @EnableScheduling
-@RequestMapping("/default-news")
+@RequestMapping("/api/v1/default-news")
 public class DefaultNewsController {
 
     private final DefaultNewsService newsService;
@@ -38,8 +44,26 @@ public class DefaultNewsController {
                 .retrieve()
                 .bodyToMono(ActualNewsResponse.class)
                 .block();
-        System.out.println(actualNewsResponse);
+        //System.out.println(actualNewsResponse);
         newsService.addDefaultNews(actualNewsResponse);
+    }
+
+    @GetMapping("/actual")
+    public ResponseEntity<Page<DefaultNewsDTO>> getAllActualNews(Pageable pageable) {
+        return ResponseEntity.ok(newsService.findAllDefaultNewsDTO(pageable));
+    }
+
+    @GetMapping("/byQuery")
+    public ResponseEntity<Page<DefaultNewsDTO>> getAllActualNewsByQuery(@RequestBody ParserRequest parserRequest) {
+        ActualNewsResponse actualNewsResponse = webClientBuilder
+                .build()
+                .post()
+                .uri("http://parser-service/parse/byQuery")
+                .body(Mono.just(parserRequest),ParserRequest.class)
+                .retrieve()
+                .bodyToMono(ActualNewsResponse.class)
+                .block();
+        return null;
     }
 
     @GetMapping("/get/{title}")
@@ -47,10 +71,7 @@ public class DefaultNewsController {
         return newsService.getDefaultNewsByTitle(title);
     }
 
-    @GetMapping("/get")
-    public List<DefaultNews> getAllNews() {
-        return newsService.getAllDefaultNews();
-    }
+
 
     @PutMapping("/update")
     public ResponseEntity<?> updateNews(@ModelAttribute DefaultNews news) {

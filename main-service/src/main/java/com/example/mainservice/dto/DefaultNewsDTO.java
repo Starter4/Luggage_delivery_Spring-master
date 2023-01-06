@@ -1,17 +1,13 @@
 package com.example.mainservice.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 import java.util.List;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Builder
 public class DefaultNewsDTO {
     private Long id;
     private Date created;
@@ -20,6 +16,7 @@ public class DefaultNewsDTO {
     private String title;
     private String newsInfo;
     private String link;
+    private String imageLink;
     private boolean active;
     private String source;
     private List<String> tagList;

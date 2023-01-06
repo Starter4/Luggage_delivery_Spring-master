@@ -16,10 +16,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
@@ -31,25 +28,6 @@ import java.util.List;
 @RequestMapping("/api/v1/parser")
 public class ParserController {
     private final WebClient.Builder webClientBuilder;
-
-    @GetMapping("/google")
-    // don't work with Flask
-    /*@CircuitBreaker(name = "parser", fallbackMethod = "serviceIsNotResponding")
-    @TimeLimiter(name = "parser")
-    @Retry(name = "parser")*/
-    public void testGoogleParser(){
-        ParserResponse parserResponse = webClientBuilder
-                .build()
-                .post()
-                .uri("http://parser-service/parse/google")
-                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .body(Mono.just(new ParserRequest("Киев")),ParserRequest.class)
-                .retrieve()
-                .bodyToMono(ParserResponse.class)
-                .block();
-        System.out.println(parserResponse);
-        System.out.println("Call to parser-microservice");
-    }
 
     @GetMapping("/telegram")
     // don't work with Flask
@@ -70,15 +48,7 @@ public class ParserController {
     }
 
     @GetMapping("/actual")
-    private ResponseEntity<ActualNewsResponse> parseActualNews(){
-        /*List<ActualNews> actualNewsResponse =
-                List.of(new ActualNews("Test1","Test1","Test1","Test1","Test1"),
-                        new ActualNews("Test2","Test2","Test2","Test2","Test2")
-        );*/
-        /*ActualNewsResponse actualNewsResponse = new ActualNewsResponse(
-                List.of(new ActualNews("Test1","Test1","Test1","Test1","Test1"),
-                        new ActualNews("Test2","Test2","Test2","Test2","Test2"))
-                );*/
+    private ResponseEntity<ActualNewsResponse> parseActualNewsByQuery(@RequestBody ParserRequest parserRequest){
         ActualNewsResponse actualNewsResponse = webClientBuilder
                 .build()
                 .post()

@@ -43,7 +43,7 @@ public class AuthController {
         this.registrationServiceI = registrationServiceI;
     }
 
-    @PostMapping("/login")
+    @PostMapping("/signin")
     public ResponseEntity<Object> authenticateUser(@Valid @RequestBody LoginRequest loginRequest, BindingResult bindingResult) {
         ResponseEntity<Object> errors = responseErrorValidator.mapValidationService(bindingResult);
         if (!ObjectUtils.isEmpty(errors))
