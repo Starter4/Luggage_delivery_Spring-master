@@ -134,7 +134,7 @@ def create_response(parse_news, google_news):
     print(len(response))
     return response
 
-
+#test
 google_result = by_qyery(query, country="UA", period="12h", max_results=150)
 twitter_result = parse_twitter(query)
 tg_result = parse_tg(query, 1)
