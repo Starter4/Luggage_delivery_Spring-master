@@ -104,6 +104,16 @@ def by_qyery(query, country, period, max_results):
     parse_news = google_news.get_news(query)
     return create_response(parse_news, google_news)
 
+def parse_by_topic(topics, country, period, max_results):
+    answer = []
+    for topic in topics:
+        google_news = GNews(language='uk', country=country, period=period, max_results=max_results)
+        parse_news = google_news.get_news_by_topic(topic)
+        answer += (create_response(parse_news, google_news))
+
+    random.shuffle(answer)
+    return answer
+
 def create_response(parse_news, google_news):
     response = []
     for news in parse_news:
@@ -139,3 +149,5 @@ google_result = by_qyery(query, country="UA", period="12h", max_results=150)
 twitter_result = parse_twitter(query)
 tg_result = parse_tg(query, 1)
 actual_news = actual(country="UA", period="12h", max_results=150)
+topics = ['BUSINESS','SPORTS','SCIENCE']
+parse_topics = parse_by_topic(topics=topics, country="UA", period="12h", max_results=10)
