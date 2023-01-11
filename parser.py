@@ -11,9 +11,10 @@ from bs4 import BeautifulSoup
 import requests
 from gnews import GNews
 
-query = input("Enter your query - ")
-
+# query = input("Enter your query - ")
+query = "Киев Свет"
 limit = 50
+default_image = "https://www.ixbt.com/img/n1/news/2021/2/1/chrome-incognito-featured_large.jpg"
 
 def parse_twitter(q):
     client = tweepy.Client(bearer_token=config.BEARER_TOKEN)
@@ -86,12 +87,6 @@ def parse_tg(query, n_posts):
             else:
                 break
         response['content'].append(info)
-    # a = response['content'][0]
-    # print(a)
-    # print(len(a['message']))
-    # b = response['content'][1]
-    # print(b)
-    # print(len(b['message']))
     return response
 
 def actual(country, period, max_results):
@@ -135,19 +130,7 @@ def create_response(parse_news, google_news):
                     if ".jpg" in image or '.png' in image:
                         images = image
             except:
-                images = "https://www.ixbt.com/img/n1/news/2021/2/1/chrome-incognito-featured_large.jpg"
+                images = default_image
         news_paper['image'] = images
-        print(news_paper)
-        print('=====')
         response.append(news_paper)
-    # print(response)
-    print(len(response))
     return response
-
-#test
-google_result = by_qyery(query, country="UA", period="12h", max_results=150)
-twitter_result = parse_twitter(query)
-tg_result = parse_tg(query, 1)
-actual_news = actual(country="UA", period="12h", max_results=150)
-topics = ['BUSINESS','SPORTS','SCIENCE']
-parse_topics = parse_by_topic(topics=topics, country="UA", period="12h", max_results=10)
